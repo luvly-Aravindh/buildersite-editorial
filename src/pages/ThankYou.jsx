@@ -126,13 +126,26 @@ function ProofTicker() {
   )
 }
 
+function pickFirstName(raw) {
+  const first = (raw || '').trim().split(' ')[0].replace(/[^A-Za-z'-]/g, '')
+  return first ? first.charAt(0).toUpperCase() + first.slice(1) : ''
+}
+
 export default function ThankYou() {
   const [params] = useSearchParams()
   useReveal()
 
-  const raw = params.get('name') || ''
-  const first = raw.trim().split(' ')[0].replace(/[^A-Za-z'-]/g, '')
-  const name = first ? first.charAt(0).toUpperCase() + first.slice(1) : ''
+  // Query param (direct navigate) or sessionStorage (return from TidyCal).
+  let raw = params.get('name') || ''
+  if (!raw) {
+    try {
+      raw = sessionStorage.getItem('bs_lead_name') || ''
+      if (raw) sessionStorage.removeItem('bs_lead_name')
+    } catch {
+      /* ignore */
+    }
+  }
+  const name = pickFirstName(raw)
 
   const lede = name
     ? `Thanks ${name}, your call details are on the way to your inbox. Check spam if you do not see them.`

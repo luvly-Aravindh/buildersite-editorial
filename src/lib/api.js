@@ -5,6 +5,17 @@ export const LEAD_ENDPOINT = import.meta.env.VITE_LEAD_ENDPOINT || '/api/lead.ph
 // straight to the thank-you page, which keeps the funnel demoable.
 export const BOOKING_URL = import.meta.env.VITE_BOOKING_URL || ''
 
+/** Path only — used for iframe breakout + same-origin checks. */
+export const THANKYOU_PATH = `${import.meta.env.BASE_URL}thankyou`.replace(/\/{2,}/g, '/')
+
+/** Absolute URL — passed to TidyCal as redirect_url. */
+export function getThankYouUrl(name = '') {
+  const origin = typeof window !== 'undefined' ? window.location.origin : ''
+  const base = `${origin}${THANKYOU_PATH}`
+  if (!name.trim()) return base
+  return `${base}?name=${encodeURIComponent(name.trim())}`
+}
+
 export async function submitLead(payload) {
   const res = await fetch(LEAD_ENDPOINT, {
     method: 'POST',
