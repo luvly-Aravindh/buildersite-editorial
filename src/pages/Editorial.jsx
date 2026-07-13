@@ -121,7 +121,10 @@ export default function Editorial() {
           <h2>The 2026 edge: an assistant that never sleeps</h2>
           <p>What has sharpened the shift is a small piece of technology. Alongside the website, BuilderSite can add an assistant that answers a homeowner's questions the moment they ask, day or night, so an enquiry made at 11pm does not go cold by morning.</p>
           <p>The studio is careful not to oversell it. A chatbot bolted onto a poor website, Arul says, just answers questions for a homeowner who has already decided to leave. It works only because it sits on a site built to earn trust in the first place. The assistant is an optional add-on, not the fix.</p>
-          <figure className="portrait"><div className="imgph wide"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4 0-9 2-9 6v2h18v-2c0-4-5-6-9-6Z" /></svg><div className="t">Portrait</div><div className="d">Arul Prakash, founder of BuilderSite. Swap for a real photo.</div></div><div className="cap">Arul Prakash, founder of BuilderSite. <span style={{color: '#9aa0a6', textTransform: 'uppercase', fontSize: '10.5px', letterSpacing: '.06em'}}>Photo placeholder</span></div></figure>
+          <figure className="portrait">
+            <img src="/assets/ceo.png" alt="Arul Prakash, founder of BuilderSite" />
+            <div className="cap">Arul Prakash, founder of BuilderSite.</div>
+          </figure>
 
           <div className="cta-wrap"><a className="cta-btn" href="/audit">Get Your Website Built Free</a><div className="cta-sub">BuilderSite builds your whole site first &#183; you pay only if you love it &#183; a limited number of builds each month</div></div>
 
