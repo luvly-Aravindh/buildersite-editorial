@@ -1,0 +1,21 @@
+# Hostinger / Apache — SPA fallback for /buildersite-editorial/
+# Upload the contents of dist/ into public_html/buildersite-editorial/
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /buildersite-editorial/
+
+  # Don't rewrite real files or directories (JS/CSS/images/api)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Client routes → index.html (e.g. /buildersite-editorial/audit)
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Correct MIME types if the host mislabels modules
+<IfModule mod_mime.c>
+  AddType text/javascript js mjs
+  AddType text/css css
+  AddType application/wasm wasm
+</IfModule>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TopBand, Nav, Footer } from '../components/Chrome.jsx'
-import { submitLead, BOOKING_URL } from '../lib/api.js'
+import { submitLead, BOOKING_URL, thankYouUrl } from '../lib/api.js'
 
 const CITIES = ['Melbourne', 'Sydney', 'Brisbane', 'Adelaide', 'Canberra', 'Gold Coast', 'Perth', 'Other']
 
@@ -70,11 +70,22 @@ export default function Audit() {
       console.error('Lead capture failed:', e)
     }
 
-    const qs = `name=${encodeURIComponent(f.name)}&email=${encodeURIComponent(f.email)}`
+    // Persist name so the thank-you page can greet them after TidyCal redirects back.
+    try {
+      sessionStorage.setItem('bs_lead_name', f.name.trim())
+    } catch {
+      /* private mode / blocked storage — page still works without a name */
+    }
+
     if (BOOKING_URL) {
-      window.location.href = `${BOOKING_URL}${BOOKING_URL.includes('?') ? '&' : '?'}${qs}`
+      const sep = BOOKING_URL.includes('?') ? '&' : '?'
+      const thankYou = thankYouUrl(f.name)
+      window.location.href =
+        `${BOOKING_URL}${sep}name=${encodeURIComponent(f.name.trim())}` +
+        `&email=${encodeURIComponent(f.email.trim())}` +
+        `&redirect_url=${encodeURIComponent(thankYou)}`
     } else {
-      navigate(`/thank-you?name=${encodeURIComponent(f.name)}`)
+      navigate(`/thankyou?name=${encodeURIComponent(f.name)}`)
     }
   }
 

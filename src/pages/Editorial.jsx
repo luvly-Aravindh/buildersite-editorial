@@ -3,6 +3,8 @@ import heroImage from "../components/Hero_Main.webp"; // Update the path as need
 import inlineImage from "../components/Home_2.webp"; // Update the path if needed
 import velBuiltImage from "../components/Home_3.webp"; // Update the path if needed
 
+const base = import.meta.env.BASE_URL
+
 /**
  * Editorial advertorial. Markup and CSS carried over verbatim from the
  * approved HTML build (rules scoped under .editorial-root in pages.css),
@@ -122,11 +124,11 @@ export default function Editorial() {
           <p>What has sharpened the shift is a small piece of technology. Alongside the website, BuilderSite can add an assistant that answers a homeowner's questions the moment they ask, day or night, so an enquiry made at 11pm does not go cold by morning.</p>
           <p>The studio is careful not to oversell it. A chatbot bolted onto a poor website, Arul says, just answers questions for a homeowner who has already decided to leave. It works only because it sits on a site built to earn trust in the first place. The assistant is an optional add-on, not the fix.</p>
           <figure className="portrait">
-            <img src="/assets/ceo.png" alt="Arul Prakash, founder of BuilderSite" />
+            <img src={`${base}assets/ceo.png`} alt="Arul Prakash, founder of BuilderSite" />
             <div className="cap">Arul Prakash, founder of BuilderSite.</div>
           </figure>
 
-          <div className="cta-wrap"><a className="cta-btn" href="/audit">Get Your Website Built Free</a><div className="cta-sub">BuilderSite builds your whole site first &#183; you pay only if you love it &#183; a limited number of builds each month</div></div>
+          <div className="cta-wrap"><a className="cta-btn" href={`${base}audit`}>Get Your Website Built Free</a><div className="cta-sub">BuilderSite builds your whole site first &#183; you pay only if you love it &#183; a limited number of builds each month</div></div>
 
           <h2>One we have actually built</h2>
           <p>The proof BuilderSite points to is not a wall of logos. It is a live site. VelBuilt, a custom home builder in Melbourne, is a real website the studio designed and built, and it is online now at velbuilt.com.au. A handful of other names, including ardent-atelier and stratum, are demonstration builds the studio uses to show its work.</p>
@@ -154,7 +156,7 @@ export default function Editorial() {
           <h2>The bottom line</h2>
           <p>For builders sitting on great work and a quiet phone, the message is uncomfortable but simple. The job is being decided online, in the eight seconds before the call, and that first impression is fixable.</p>
           <p>BuilderSite offers to build a full website first and only charge if the builder keeps it. With only a handful of builds each month, the openings tend to fill quickly.</p>
-          <div className="cta-wrap"><a className="cta-btn" href="/audit">Apply for a Free Build</a><div className="cta-sub">Built first &#183; you pay only if you love it &#183; 1,999 AUD one-time if you keep it, nothing if you do not</div></div>
+          <div className="cta-wrap"><a className="cta-btn" href={`${base}audit`}>Apply for a Free Build</a><div className="cta-sub">Built first &#183; you pay only if you love it &#183; 1,999 AUD one-time if you keep it, nothing if you do not</div></div>
         </div>
 
         <div className="results">
@@ -183,7 +185,7 @@ export default function Editorial() {
           <div className="mr"><div className="num">4</div><a href="#">What a nervous homeowner checks before making contact</a></div>
           <div className="mr"><div className="num">5</div><a href="#">Five things every builder's website gets wrong</a></div>
         </div>
-        <div className="widget"><div className="adslot"><div className="l">Advertisement</div><div className="m">A few free builds open this month.</div><a className="cta-btn" style={{fontSize: '14px', padding: '12px 20px'}} href="/audit">Get Your Free Site</a></div></div>
+        <div className="widget"><div className="adslot"><div className="l">Advertisement</div><div className="m">A few free builds open this month.</div><a className="cta-btn" style={{fontSize: '14px', padding: '12px 20px'}} href={`${base}audit`}>Get Your Free Site</a></div></div>
         <div className="widget follow"><h4>Follow Us</h4><a href="#">f</a><a href="#">X</a><a href="#">in</a><a href="#">&#9993;</a></div>
       </div></aside>
       </div>
