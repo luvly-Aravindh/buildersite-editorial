@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import heroImage from "../components/home-1.webp"; // Update the path as needed
-import inlineImage from "../components/home-2.webp"; // Update the path if needed
-import velBuiltImage from "../components/home-3.webp"; // Update the path if needed
+import heroImage from "../components/Hero_Main.webp"; // Update the path as needed
+import inlineImage from "../components/Home_2.webp"; // Update the path if needed
+import velBuiltImage from "../components/Home_3.webp"; // Update the path if needed
 
 /**
  * Editorial advertorial. Markup and CSS carried over verbatim from the
