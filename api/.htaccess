@@ -1,0 +1,7 @@
+# Never serve config or stored leads, even if the storage dir ends up in the web root.
+<FilesMatch "^(config|config\.example)\.php$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "\.(jsonl|txt)$">
+  Require all denied
+</FilesMatch>

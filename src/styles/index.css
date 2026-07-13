@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Preflight is disabled (see tailwind.config.js); these are the few global
+   resets the pages actually relied on from the original build. */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; padding: 0; overflow-x: clip; }
+}
