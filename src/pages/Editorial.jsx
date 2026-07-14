@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import heroImage from "../components/Hero_Main.webp"; // Update the path as needed
-import inlineImage from "../components/Home_2.webp"; // Update the path if needed
-import velBuiltImage from "../components/Home_3.webp"; // Update the path if needed
+import inlineImage from "../components/home_2.png"; // Update the path if needed
+import velBuiltImage from "../components/velbuilt.jpg"; // Update the path if needed
 
 const base = import.meta.env.BASE_URL
 
@@ -65,6 +65,9 @@ export default function Editorial() {
       src={heroImage}
       alt="Custom home nearing completion"
       className="hero-image"
+      width={702}
+      height={412}
+      loading="eager"
     />
   </div>
 
@@ -94,16 +97,20 @@ export default function Editorial() {
           <p>Builders, in other words, are being judged and rejected before they even know a homeowner exists. <b>Fixing that first impression, not paying for more clicks, is the whole pitch.</b></p>
           <div className="chartcard"><div className="ct">What happens to 100 homeowners who find you online</div><div className="cs">Illustrative funnel</div><svg viewBox="0 0 680 300" width="100%" xmlns="http://www.w3.org/2000/svg"><text x="14" y="53" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Find you</text><rect x="182" y="30" width="400.0" height="34" rx="4" fill="#dde2ea" /><text x="592.0" y="53" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">100</text><text x="14" y="105" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Click site</text><rect x="182" y="82" width="248.0" height="34" rx="4" fill="#1a4fa3" /><text x="440.0" y="105" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">62</text><text x="14" y="157" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Stay 8s</text><rect x="182" y="134" width="96.0" height="34" rx="4" fill="#1a4fa3" /><text x="288.0" y="157" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">24</text><text x="14" y="209" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Trust you</text><rect x="182" y="186" width="56.0" height="34" rx="4" fill="#1a4fa3" /><text x="248.0" y="209" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">14</text><text x="14" y="261" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Call</text><rect x="182" y="238" width="32.0" height="34" rx="4" fill="#12386f" /><text x="224.0" y="261" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">8</text></svg><div className="ccap">Every homeowner lost in the first seconds is a job that never becomes a phone call. Fix the first impression and the same traffic fills a diary.</div></div>
 <figure className="inline">
-  <img
-    src={inlineImage}
-    alt="Homeowner comparing builders on a phone"
-    className="inline-image"
-  />
+  <div className="inline-media">
+    <img
+      src={inlineImage}
+      alt="Homeowner comparing builders on a phone"
+      className="inline-image"
+      width={702}
+      height={412}
+      loading="lazy"
+    />
+  </div>
 
   <figcaption className="cap">
-    The shortlist is built on a phone, in the dark, weeks before the first
-    call.
-    <span
+  For a growing number of Australian builders, the next project is won or lost before the first conversation
+    <br></br><span
       style={{
         color: "#9aa0a6",
         textTransform: "uppercase",
@@ -133,11 +140,16 @@ export default function Editorial() {
           <h2>One we have actually built</h2>
           <p>The proof BuilderSite points to is not a wall of logos. It is a live site. VelBuilt, a custom home builder in Melbourne, is a real website the studio designed and built, and it is online now at velbuilt.com.au. A handful of other names, including ardent-atelier and stratum, are demonstration builds the studio uses to show its work.</p>
 <figure className="inline">
-  <img
-    src={velBuiltImage}
-    alt="VelBuilt website screenshot"
-    className="inline-image"
-  />
+  <div className="inline-media">
+    <img
+      src={velBuiltImage}
+      alt="VelBuilt website screenshot"
+      className="inline-image"
+      width={702}
+      height={412}
+      loading="lazy"
+    />
+  </div>
 
   <figcaption className="cap">
     <b>VelBuilt</b>, custom home builders in Melbourne. A real site, designed
