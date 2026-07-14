@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import heroImage from "../components/Hero_Main.webp"; // Update the path as needed
 import inlineImage from "../components/home_2.png"; // Update the path if needed
-import velBuiltImage from "../components/velbuilt.jpg"; // Update the path if needed
+import velBuiltImage from "../components/velbuilt.png"; // Update the path if needed
 
 const base = import.meta.env.BASE_URL
 
@@ -44,15 +44,13 @@ export default function Editorial() {
            Publication name "Australian Builder" swaps in the nameplate + footer.
            ============================================================ */}
 
-      <div className="util"><div className="util-in"><span><span className="adv">Advertorial</span> &#183; <span id="topdate">Tuesday, July 7, 2026</span></span><span className="ulinks"><a href="#">e-Paper</a> &#183; <a href="#">Subscribe</a> &#183; <a href="#">Sign In</a></span></div></div>
+      <div className="util"><div className="util-in"><span id="topdate">Tuesday, July 7, 2026</span><span className="ulinks"><a href="#">e-Paper</a> &#183; <a href="#">Subscribe</a> &#183; <a href="#">Sign In</a></span></div></div>
       <div className="np"><div className="name"><b>AUSTRALIAN</b> <span>BUILDER</span></div><div className="tag">Homes &#183; Trade &#183; The Business of Building</div></div>
-      <nav className="nav"><div className="nav-in"><a href="#">Home</a><a href="#">News</a><a href="#">Projects</a><a href="#">Business</a><a href="#">Design</a><a href="#" className="active">Marketing</a><a href="#">Opinion</a><span className="sp"></span><a className="sub" href="#">Subscribe</a></div></nav>
+      <nav className="nav"><div className="nav-in"><a href="#">Home</a><a href="#">News</a><a href="#">Projects</a><a href="#" className="active">Business</a><a href="#">Design</a><a href="#">Marketing</a><a href="#">Opinion</a><span className="sp"></span><a className="sub" href="#">Subscribe</a></div></nav>
 
       <div className="container">
       <div className="main">
-        <div className="crumb"><a href="#">Home</a> &#8250; <a href="#">Business</a> &#8250; <b>Marketing</b></div>
-        <div className="advband">Advertorial &#183; Partner Content</div>
-        <div className="sec">Marketing</div>
+        <div className="crumb"><a href="#">Home</a> &#8250; <b>Business</b></div>
         <h1>Why Australia's custom home builders keep losing jobs before the first phone call</h1>
         <div className="standfirst ui">They do the work, quote fairly, and never hear back. A growing number of builders are discovering the job was decided online, long before the phone rang, and turning to a small studio that builds the whole website first and only charges if they love it.</div>
         <div className="byline"><div className="mono">AB</div><div><div className="who">By the <b>Australian Builder</b> Desk</div><div className="meta">Melbourne &#183; <span id="pubmeta">Published July 7, 2026 06:30 AEST &#183; Updated 09:10 AEST</span></div></div>
