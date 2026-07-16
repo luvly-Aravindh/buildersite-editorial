@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TopBand, Nav, Footer } from '../components/Chrome.jsx'
-import { submitLead, BOOKING_URL, THANKYOU_PATH, getThankYouUrl } from '../lib/api.js'
+import { submitLead, BOOKING_URL, THANKYOU_PATH, IS_GOOGLE_BOOKING, buildBookingUrl } from '../lib/api.js'
 
 const CITIES = ['Melbourne', 'Sydney', 'Brisbane', 'Adelaide', 'Canberra', 'Gold Coast', 'Perth', 'Other']
 
@@ -37,6 +37,9 @@ export default function Audit() {
   const [trap, setTrap] = useState('')
   const frameRef = useRef(null)
   const leftForThankYou = useRef(false)
+  const calendarStepStartedAt = useRef(0)
+  const bookingBlurAt = useRef(0)
+  const autoRedirectTimer = useRef(null)
 
   const set = (k) => (e) => setF((prev) => ({ ...prev, [k]: e.target.value }))
   const firstName = f.name.trim().split(' ')[0]
@@ -49,8 +52,15 @@ export default function Audit() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // When TidyCal redirects to our thank-you URL inside the iframe (same origin),
-  // break out to the full thank-you page. Also catch postMessage booking events.
+  useEffect(() => {
+    if (step === 'calendar') {
+      calendarStepStartedAt.current = Date.now()
+      bookingBlurAt.current = 0
+    }
+  }, [step])
+
+  // For cross-origin booking providers, we can't read iframe DOM directly.
+  // We still listen for postMessage payloads that include booking-confirmed text.
   useEffect(() => {
     if (step !== 'calendar') return
 
@@ -64,8 +74,31 @@ export default function Audit() {
       const data = e.data
       if (!data) return
       const raw = typeof data === 'string' ? data : JSON.stringify(data)
-      if (/tidycal|booking.?complete|booking.?confirmed|booked/i.test(raw)) {
+      if (
+        /tidycal|booking.?complete|booking.?confirmed|booked|email sent to|website discussion with buildersite|appointment confirmed/i.test(raw)
+      ) {
         breakOut()
+      }
+    }
+
+    // Google Calendar doesn't expose a redirect hook. As a fallback, if the
+    // user returns focus after interacting away from this page for a few
+    // seconds during booking, we auto-continue to thank-you.
+    const onBlur = () => {
+      if (!IS_GOOGLE_BOOKING) return
+      bookingBlurAt.current = Date.now()
+    }
+
+    const onFocus = () => {
+      if (!IS_GOOGLE_BOOKING || leftForThankYou.current) return
+      const now = Date.now()
+      const awayForMs = bookingBlurAt.current ? now - bookingBlurAt.current : 0
+      const inCalendarForMs = calendarStepStartedAt.current ? now - calendarStepStartedAt.current : 0
+      if (awayForMs > 4000 && inCalendarForMs > 20000) {
+        if (autoRedirectTimer.current) clearTimeout(autoRedirectTimer.current)
+        autoRedirectTimer.current = setTimeout(() => {
+          breakOut()
+        }, 1200)
       }
     }
 
@@ -82,8 +115,16 @@ export default function Audit() {
     }, 500)
 
     window.addEventListener('message', onMessage)
+    window.addEventListener('blur', onBlur)
+    window.addEventListener('focus', onFocus)
     return () => {
       window.removeEventListener('message', onMessage)
+      window.removeEventListener('blur', onBlur)
+      window.removeEventListener('focus', onFocus)
+      if (autoRedirectTimer.current) {
+        clearTimeout(autoRedirectTimer.current)
+        autoRedirectTimer.current = null
+      }
       clearInterval(poll)
     }
   }, [step, f.name])
@@ -152,14 +193,8 @@ export default function Audit() {
     }
 
     if (BOOKING_URL) {
-      const sep = BOOKING_URL.includes('?') ? '&' : '?'
-      const thankYou = getThankYouUrl(f.name)
       leftForThankYou.current = false
-      setCalSrc(
-        `${BOOKING_URL}${sep}name=${encodeURIComponent(f.name.trim())}` +
-          `&email=${encodeURIComponent(f.email.trim())}` +
-          `&redirect_url=${encodeURIComponent(thankYou)}`
-      )
+      setCalSrc(buildBookingUrl(f.name, f.email))
       setBusy(false)
       setStep('calendar')
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -280,15 +315,24 @@ export default function Audit() {
                   &larr; Edit my details
                 </button>
                 {calSrc ? (
-                  <iframe
-                    ref={frameRef}
-                    className="cal-frame"
-                    src={calSrc}
-                    title="Book your BuilderSite call"
-                    loading="lazy"
-                    allow="payment *"
-                    onLoad={onFrameLoad}
-                  />
+                  <>
+                    <iframe
+                      ref={frameRef}
+                      className="cal-frame"
+                      src={calSrc}
+                      title="Book your BuilderSite call"
+                      loading="lazy"
+                      allow="payment *"
+                      onLoad={onFrameLoad}
+                    />
+                    {IS_GOOGLE_BOOKING && (
+                      <div style={{ marginTop: '1rem' }}>
+                        <button className="cta cta-block" onClick={() => goToThankYou(f.name)} type="button">
+                          I've booked my call
+                        </button>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className="micro">Loading available times...</div>
                 )}
