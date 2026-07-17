@@ -34,7 +34,6 @@ export default function Audit() {
     name: '', business: '', email: '', phone: '', city: '',
     licensed: '', volume: '', website: '', findYou: '', timeline: ''
   })
-  const [trap, setTrap] = useState('')
   const frameRef = useRef(null)
   const leftForThankYou = useRef(false)
   const calendarStepStartedAt = useRef(0)
@@ -177,7 +176,6 @@ export default function Audit() {
         website: f.website,
         findYou: f.findYou,
         timeline: f.timeline,
-        company_website: trap,
         source: 'buildersite_audit',
         page: typeof window !== 'undefined' ? window.location.pathname : '',
         ts: new Date().toISOString()
@@ -262,17 +260,6 @@ export default function Audit() {
                         <option key={c}>{c}</option>
                       ))}
                     </select>
-
-                    <input
-                      type="text"
-                      name="company_website"
-                      tabIndex={-1}
-                      autoComplete="off"
-                      aria-hidden="true"
-                      value={trap}
-                      onChange={(e) => setTrap(e.target.value)}
-                      className="absolute left-[-9999px] h-0 w-0 opacity-0"
-                    />
 
                     {err && <div className="err on">{err}</div>}
                     <button className="cta cta-block !mt-[1.4rem]" onClick={toStep2} type="button">
