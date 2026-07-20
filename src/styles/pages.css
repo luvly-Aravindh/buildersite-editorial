@@ -38,7 +38,8 @@
 .editorial-root .byline .share{margin-left:auto;display:flex;gap:7px}
 .editorial-root .byline .share span{width:30px;height:30px;border:1px solid #e0e0e0;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#9aa0a6;font:700 12px Inter}
 .editorial-root .hero{margin:20px 0 6px}
-.editorial-root .hero img{width:100%;border-radius:2px}
+.editorial-root .hero-r{width:100%;max-width:702px;aspect-ratio:702/412;overflow:hidden;border-radius:2px;background:#eef0f3}
+.editorial-root .hero-image{width:100%;height:100%;object-fit:cover;object-position:center;border-radius:2px}
 .editorial-root .heroc{font:400 13px/1.45 Inter;color:#666;margin-top:8px}
 .editorial-root .heroc .cr{display:block;color:#9aa0a6;text-transform:uppercase;font-size:10.5px;letter-spacing:.06em;margin-top:3px}
 .editorial-root .body{padding-top:10px}
@@ -58,6 +59,9 @@
 .editorial-root .chartcard .ct{font-family:'Source Serif 4',serif;font-weight:700;font-size:19px;color:#111;margin-bottom:3px}
 .editorial-root .chartcard .cs{font:600 10px Inter;letter-spacing:.12em;text-transform:uppercase;color:#aaa;margin-bottom:15px}
 .editorial-root .chartcard .ccap{font:400 13px/1.5 Inter;color:#888;margin-top:11px}
+.editorial-root figure.inline{margin:26px 0}
+.editorial-root figure.inline .inline-media{width:100%;max-width:702px;aspect-ratio:702/412;overflow:hidden;border-radius:2px;background:#eef0f3}
+.editorial-root .inline-image{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .editorial-root figure.portrait{margin:26px 0}
 .editorial-root figure.portrait img{width:100%;border-radius:2px}
 .editorial-root .cap{font:400 13px/1.4 Inter;color:#777;margin-top:8px}

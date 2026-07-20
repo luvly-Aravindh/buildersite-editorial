@@ -1,19 +1,9 @@
 <?php
-/**
- * BuilderSite lead capture endpoint.
- * POST JSON from the audit wizard, validate it, store it, optionally email it.
- *
- * Deploy: put this behind /api/lead.php. Copy config.example.php to config.php
- * and fill in the values. Never commit config.php.
- */
 
 declare(strict_types=1);
 
 $config = require __DIR__ . '/config.php';
 
-// ---------------------------------------------------------------------------
-// CORS: only answer the origins we actually serve the site from.
-// ---------------------------------------------------------------------------
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 if ($origin !== '' && in_array($origin, $config['allowed_origins'], true)) {
     header('Access-Control-Allow-Origin: ' . $origin);
@@ -31,14 +21,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
     exit;
 }
 
-function fail(int $code, string $message): never
+function fail(int $code, string $message): void
 {
     http_response_code($code);
     echo json_encode(['ok' => false, 'error' => $message], JSON_UNESCAPED_SLASHES);
     exit;
 }
 
-function ok(array $extra = []): never
+function ok(array $extra = []): void
 {
     echo json_encode(['ok' => true] + $extra, JSON_UNESCAPED_SLASHES);
     exit;
@@ -48,9 +38,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     fail(405, 'Method not allowed.');
 }
 
-// ---------------------------------------------------------------------------
-// Rate limit: cheap per-IP throttle, no database required.
-// ---------------------------------------------------------------------------
 $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 $bucket = $config['storage_dir'] . '/rate';
 if (!is_dir($bucket)) {
@@ -75,22 +62,16 @@ $hits[] = $now;
 // Parse and validate.
 // ---------------------------------------------------------------------------
 $raw = file_get_contents('php://input');
-if ($raw === false || strlen($raw) > 12000) {
+if ($raw === false || $raw === '') {
+    fail(400, 'Empty request body.');
+}
+if (strlen($raw) > 12000) {
     fail(413, 'Payload too large.');
 }
 
-try {
-    $in = json_decode($raw, true, 8, JSON_THROW_ON_ERROR);
-} catch (JsonException) {
+$in = json_decode($raw, true);
+if (!is_array($in) || json_last_error() !== JSON_ERROR_NONE) {
     fail(400, 'Malformed request.');
-}
-if (!is_array($in)) {
-    fail(400, 'Malformed request.');
-}
-
-// Honeypot: real builders never fill this in, bots do.
-if (!empty($in['company_website'])) {
-    ok(['skipped' => true]);
 }
 
 /** Trim, strip control characters, and cap length. */
@@ -100,7 +81,9 @@ function clean(mixed $v, int $max): string
         return '';
     }
     $s = preg_replace('/[\x00-\x1F\x7F]/u', '', trim((string) $v)) ?? '';
-    return mb_substr($s, 0, $max);
+    return function_exists('mb_substr')
+        ? mb_substr($s, 0, $max)
+        : substr($s, 0, $max);
 }
 
 $name     = clean($in['name'] ?? '', 120);
@@ -134,7 +117,9 @@ if ($errors !== []) {
 // ---------------------------------------------------------------------------
 // Store. Newline-delimited JSON, outside the web root, locked on write.
 // ---------------------------------------------------------------------------
+$id = 'lead_' . gmdate('Ymd_His') . '_' . bin2hex(random_bytes(3));
 $lead = [
+    'id'          => $id,
     'received_at' => gmdate('c'),
     'name'        => $name,
     'business'    => $business,
@@ -142,6 +127,8 @@ $lead = [
     'phone'       => $phone,
     'city'        => $city,
     'source'      => clean($in['source'] ?? 'buildersite_audit', 40),
+    'page'        => 'Editorial',
+    'submitted_at'=> clean($in['ts'] ?? '', 40),
     'ip'          => hash('sha256', $ip . $config['ip_salt']), // hashed, not stored raw
     'user_agent'  => clean($_SERVER['HTTP_USER_AGENT'] ?? '', 200),
 ] + $answers;
@@ -152,29 +139,62 @@ if (!is_dir($config['storage_dir']) && !@mkdir($config['storage_dir'], 0700, tru
 
 $file = $config['storage_dir'] . '/leads-' . gmdate('Y-m') . '.jsonl';
 $line = json_encode($lead, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . PHP_EOL;
-if (@file_put_contents($file, $line, FILE_APPEND | LOCK_EX) === false) {
+
+$writeOk = false;
+$fp = @fopen($file, 'ab');
+if ($fp !== false) {
+    if (flock($fp, LOCK_EX)) {
+        $writeOk = fwrite($fp, $line) !== false;
+        fflush($fp);
+        flock($fp, LOCK_UN);
+    }
+    fclose($fp);
+}
+
+if (!$writeOk) {
+    error_log('BuilderSite lead storage failed: ' . $file);
     fail(500, 'Could not store your details. Please email us instead.');
 }
 @chmod($file, 0600);
 
-// ---------------------------------------------------------------------------
-// Notify. Header injection is impossible here: we never echo user input
-// into a header, and the From address is fixed by config.
-// ---------------------------------------------------------------------------
+$mailSent = null;
 if ($config['notify_to'] !== '') {
-    $subject = 'New builder lead: ' . mb_substr($business, 0, 60);
-    $body = "New lead from the audit wizard\n\n";
-    foreach ($lead as $k => $v) {
-        if ($k === 'ip' || $k === 'user_agent') {
-            continue;
-        }
-        $body .= str_pad($k, 14) . ': ' . $v . "\n";
-    }
-    $headers = [
-        'From: ' . $config['notify_from'],
-        'Content-Type: text/plain; charset=utf-8',
+    $subject = 'New Lead - BuilderSite';
+    $lines = [
+        'New lead from BuilderSite:',
+        '',
+        'Name:         ' . $name,
+        'Business:     ' . $business,
+        'Email:        ' . strtolower($email),
+        'Phone:        ' . $phone,
+        'City:         ' . $city,
+        'Licensed:     ' . $answers['licensed'],
+        'Volume:       ' . $answers['volume'],
+        'Website:      ' . $answers['website'],
+        'Find you:     ' . $answers['findYou'],
+        'Timeline:     ' . $answers['timeline'],
+        '',
+        'Page:         Editorial',
+        'Received:     ' . $lead['received_at'],
+        'Lead ID:      ' . $id,
     ];
-    @mail($config['notify_to'], $subject, $body, implode("\r\n", $headers));
+    $body = implode("\n", $lines);
+    $headers = 'From: BuilderSite <' . $config['notify_from'] . ">\r\n"
+        . 'Reply-To: ' . strtolower($email) . "\r\n"
+        . "MIME-Version: 1.0\r\n"
+        . "Content-Type: text/plain; charset=utf-8\r\n";
+
+    $mailSent = @mail($config['notify_to'], $subject, $body, $headers);
+
+    if (!$mailSent) {
+        error_log(
+            'BuilderSite lead email rejected by PHP mail(). Recipient: ' .
+            $config['notify_to']
+        );
+    }
 }
 
-ok();
+ok([
+    'id' => $id,
+    'mail_sent' => $mailSent,
+]);

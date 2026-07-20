@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import heroImage from "../components/Hero_Main.webp"; // Update the path as needed
-import inlineImage from "../components/Home_2.webp"; // Update the path if needed
-import velBuiltImage from "../components/Home_3.webp"; // Update the path if needed
+import inlineImage from "../components/home_2.png"; // Update the path if needed
+import velBuiltImage from "../components/velbuilt.png"; // Update the path if needed
 
 const base = import.meta.env.BASE_URL
 
@@ -44,15 +44,13 @@ export default function Editorial() {
            Publication name "Australian Builder" swaps in the nameplate + footer.
            ============================================================ */}
 
-      <div className="util"><div className="util-in"><span><span className="adv">Advertorial</span> &#183; <span id="topdate">Tuesday, July 7, 2026</span></span><span className="ulinks"><a href="#">e-Paper</a> &#183; <a href="#">Subscribe</a> &#183; <a href="#">Sign In</a></span></div></div>
+      <div className="util"><div className="util-in"><span id="topdate">Tuesday, July 7, 2026</span><span className="ulinks"><a href="#">e-Paper</a> &#183; <a href="#">Subscribe</a> &#183; <a href="#">Sign In</a></span></div></div>
       <div className="np"><div className="name"><b>AUSTRALIAN</b> <span>BUILDER</span></div><div className="tag">Homes &#183; Trade &#183; The Business of Building</div></div>
-      <nav className="nav"><div className="nav-in"><a href="#">Home</a><a href="#">News</a><a href="#">Projects</a><a href="#">Business</a><a href="#">Design</a><a href="#" className="active">Marketing</a><a href="#">Opinion</a><span className="sp"></span><a className="sub" href="#">Subscribe</a></div></nav>
+      <nav className="nav"><div className="nav-in"><a href="#">Home</a><a href="#">News</a><a href="#">Projects</a><a href="#" className="active">Business</a><a href="#">Design</a><a href="#">Marketing</a><a href="#">Opinion</a><span className="sp"></span><a className="sub" href="#">Subscribe</a></div></nav>
 
       <div className="container">
       <div className="main">
-        <div className="crumb"><a href="#">Home</a> &#8250; <a href="#">Business</a> &#8250; <b>Marketing</b></div>
-        <div className="advband">Advertorial &#183; Partner Content</div>
-        <div className="sec">Marketing</div>
+        <div className="crumb"><a href="#">Home</a> &#8250; <b>Business</b></div>
         <h1>Why Australia's custom home builders keep losing jobs before the first phone call</h1>
         <div className="standfirst ui">They do the work, quote fairly, and never hear back. A growing number of builders are discovering the job was decided online, long before the phone rang, and turning to a small studio that builds the whole website first and only charges if they love it.</div>
         <div className="byline"><div className="mono">AB</div><div><div className="who">By the <b>Australian Builder</b> Desk</div><div className="meta">Melbourne &#183; <span id="pubmeta">Published July 7, 2026 06:30 AEST &#183; Updated 09:10 AEST</span></div></div>
@@ -65,6 +63,9 @@ export default function Editorial() {
       src={heroImage}
       alt="Custom home nearing completion"
       className="hero-image"
+      width={702}
+      height={412}
+      loading="eager"
     />
   </div>
 
@@ -75,18 +76,25 @@ export default function Editorial() {
   </div>
 </div>
         <div className="body">
-          <p className="lead">For years, the way to win a custom home build looked the same. Get listed in the directories, put your number on the truck, and wait for the phone to ring. But across Melbourne, Sydney and the Gold Coast, a quieter shift is under way. A growing number of builders are walking away from paid directory listings and cheap template sites, and handing the job to a small studio with one unusual rule: it builds your entire website first, and you only pay if you love it.</p>
+          <p className="lead">For years, the way to win a custom home build looked the same. Get listed in the directories, put your number on the truck, and wait for the phone to ring. But across Melbourne, Sydney and the Gold Coast, a quieter shift is under way. Homeowners now walk a builder website the way they once walked a display home, and they judge the build by what they find. A growing number of builders, some with no site and some with one they put up years ago and never touched again, are handing the job to a small studio with one unusual rule: it builds your entire website first, and you only pay if you love it.</p>
           <p>The studio is BuilderSite. Its founder, Arul Prakash, is blunt about the problem most builders never notice. The job is now decided on a screen, at night, long before anyone picks up the phone.</p>
 
           <h2>The problem most builders never see</h2>
           <p>Talk to enough builders and the same story repeats. The work is good. The quote is fair. The homeowner seemed keen. Then the phone goes quiet, and a few weeks later someone else is on the block.</p>
           <p>It is easy to blame price. Most of the time, price was never the problem. The homeowner had already ruled the builder out before the first call, somewhere the builder could not see.</p>
+          <p>This is not only about builders with no website. A site you built years ago and have not touched since can do more damage than no site at all. With no site, a homeowner assumes you are old school and rings anyway. With a dated site, a few old projects, text that will not read on a phone, and a design that looks like 2015, they read something worse. They read that you stopped caring. They cannot see your current work through a five-year-old website. They only see that the last time you paid attention to how you present your work was a long time ago, and they wonder where else the attention has slipped.</p>
 
-          <div className="alsoread"><span className="k">Also Read</span><a href="#">Why homeowners now judge a builder in eight seconds</a></div>
+          <h2>The most expensive lead you have already paid for</h2>
+          <p>A referral is the most expensive lead you will ever get. You paid for it in finished homes, in warranty calls you took on a Sunday, in the extra week you spent getting a handover right. Years of that is what earns a homeowner saying your name to a friend.</p>
+          <p>Then the friend does what everyone does now. They look you up before they call. Nobody rings around three builders any more. They compare all three in silence, on a phone, late at night, and only one gets the call.</p>
+          <p>What loads on your site in that moment either backs the recommendation up or quietly undercuts it. When it undercuts it, the referral does not die loudly. It goes quiet. You never find out you were in the running. That is what makes it expensive. You earned the lead. The website decides whether you keep it.</p>
 
-          <h2>A different way to look at a website</h2>
-          <p>BuilderSite starts from the homeowner, not the builder. A custom home is the biggest cheque most families will ever write, so before they call anyone, they look you up. Your website loads, and in about eight seconds they have decided whether you look like a builder they can trust.</p>
-          <p>That verdict happens in silence. The builder is not in the room and never gets to explain the twenty years on the tools. A slow or dated site does not read as an honest tradesman. To a nervous homeowner it reads as risk, and nobody books a risk.</p>
+          <div className="alsoread"><span className="k">Also Read</span><a href="#">Your website is your display home</a></div>
+
+          <h2>Your website is your display home</h2>
+          <p>Volume builders spend a fortune on display homes. A homeowner walks through, runs a hand along the joinery, opens a cupboard, and decides in minutes whether this is builder grade work. A custom builder rarely has a display home to walk a stranger through. So the website becomes the display home. It is the one place a homeowner can walk through your work before they ever meet you.</p>
+          <p>When that display home is sharp, current and finished to the same standard as your builds, the homeowner maps that care straight onto the house you would build for them. When it is dated, half finished or slow to load, they map that too. Not consciously. They just quietly decide you might cut the same corners on their home, and they move on to the next name on the list.</p>
+          <p>A homeowner cannot separate the quality of the display home from the quality of the builder. They never have. You are simply being judged on a screen now instead of a show site.</p>
           <div className="chartcard"><div className="ct">Homeowners looked you up. Almost none called.</div><div className="cs">Illustrative pattern</div><svg viewBox="0 0 680 340" width="100%" xmlns="http://www.w3.org/2000/svg"><polygon points="70,292 184,270 298,238 406,196 520,150 632,108 632,285 520,287 406,283 298,289 184,286 70,290" fill="#c0392b" opacity="0.09" /><line x1="62" y1="34" x2="62" y2="300" stroke="#d7dbe0" strokeWidth="2" /><line x1="62" y1="300" x2="636" y2="300" stroke="#d7dbe0" strokeWidth="2" /><polyline points="70,292 184,270 298,238 406,196 520,150 632,108" fill="none" stroke="#5b6472" strokeWidth="3.5" strokeLinejoin="round" /><polyline points="70,290 184,286 298,289 406,283 520,287 632,285" fill="none" stroke="#1a4fa3" strokeWidth="3.5" strokeLinejoin="round" /><circle cx="632" cy="108" r="5" fill="#5b6472" /><circle cx="632" cy="285" r="5" fill="#1a4fa3" /><text x="70" y="320" fontFamily="Inter" fontSize="13" fill="#9aa0a6" textAnchor="middle">Jan</text><text x="184" y="320" fontFamily="Inter" fontSize="13" fill="#9aa0a6" textAnchor="middle">Feb</text><text x="298" y="320" fontFamily="Inter" fontSize="13" fill="#9aa0a6" textAnchor="middle">Mar</text><text x="406" y="320" fontFamily="Inter" fontSize="13" fill="#9aa0a6" textAnchor="middle">Apr</text><text x="520" y="320" fontFamily="Inter" fontSize="13" fill="#9aa0a6" textAnchor="middle">May</text><text x="632" y="320" fontFamily="Inter" fontSize="13" fill="#9aa0a6" textAnchor="middle">Jun</text><circle cx="74" cy="18" r="5" fill="#5b6472" /><text x="86" y="23" fontFamily="Inter" fontSize="14" fill="#5b6472">Looked you up online</text><circle cx="250" cy="18" r="5" fill="#1a4fa3" /><text x="262" y="23" fontFamily="Inter" fontSize="14" fill="#1a4fa3">Actually called</text></svg><div className="ccap">The homeowners quietly checking you out, against the few who ever make contact. The shaded gap is work already lost.</div></div>
 
           <h2>The leak between a search and a call</h2>
@@ -94,16 +102,20 @@ export default function Editorial() {
           <p>Builders, in other words, are being judged and rejected before they even know a homeowner exists. <b>Fixing that first impression, not paying for more clicks, is the whole pitch.</b></p>
           <div className="chartcard"><div className="ct">What happens to 100 homeowners who find you online</div><div className="cs">Illustrative funnel</div><svg viewBox="0 0 680 300" width="100%" xmlns="http://www.w3.org/2000/svg"><text x="14" y="53" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Find you</text><rect x="182" y="30" width="400.0" height="34" rx="4" fill="#dde2ea" /><text x="592.0" y="53" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">100</text><text x="14" y="105" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Click site</text><rect x="182" y="82" width="248.0" height="34" rx="4" fill="#1a4fa3" /><text x="440.0" y="105" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">62</text><text x="14" y="157" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Stay 8s</text><rect x="182" y="134" width="96.0" height="34" rx="4" fill="#1a4fa3" /><text x="288.0" y="157" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">24</text><text x="14" y="209" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Trust you</text><rect x="182" y="186" width="56.0" height="34" rx="4" fill="#1a4fa3" /><text x="248.0" y="209" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">14</text><text x="14" y="261" fontFamily="Inter" fontWeight="600" fontSize="15" fill="#1a1a1a">Call</text><rect x="182" y="238" width="32.0" height="34" rx="4" fill="#12386f" /><text x="224.0" y="261" fontFamily="Inter" fontWeight="800" fontSize="15" fill="#1a1a1a">8</text></svg><div className="ccap">Every homeowner lost in the first seconds is a job that never becomes a phone call. Fix the first impression and the same traffic fills a diary.</div></div>
 <figure className="inline">
-  <img
-    src={inlineImage}
-    alt="Homeowner comparing builders on a phone"
-    className="inline-image"
-  />
+  <div className="inline-media">
+    <img
+      src={inlineImage}
+      alt="Homeowner comparing builders on a phone"
+      className="inline-image"
+      width={702}
+      height={412}
+      loading="lazy"
+    />
+  </div>
 
   <figcaption className="cap">
-    The shortlist is built on a phone, in the dark, weeks before the first
-    call.
-    <span
+  For a growing number of Australian builders, the next project is won or lost before the first conversation
+    <br></br><span
       style={{
         color: "#9aa0a6",
         textTransform: "uppercase",
@@ -133,11 +145,16 @@ export default function Editorial() {
           <h2>One we have actually built</h2>
           <p>The proof BuilderSite points to is not a wall of logos. It is a live site. VelBuilt, a custom home builder in Melbourne, is a real website the studio designed and built, and it is online now at velbuilt.com.au. A handful of other names, including ardent-atelier and stratum, are demonstration builds the studio uses to show its work.</p>
 <figure className="inline">
-  <img
-    src={velBuiltImage}
-    alt="VelBuilt website screenshot"
-    className="inline-image"
-  />
+  <div className="inline-media">
+    <img
+      src={velBuiltImage}
+      alt="VelBuilt website screenshot"
+      className="inline-image"
+      width={702}
+      height={412}
+      loading="lazy"
+    />
+  </div>
 
   <figcaption className="cap">
     <b>VelBuilt</b>, custom home builders in Melbourne. A real site, designed
@@ -154,7 +171,7 @@ export default function Editorial() {
           <p>The selectivity comes with a promise most web companies will not make. BuilderSite designs and builds the entire website first, written, designed and live, and the builder sees the finished site before paying a cent. Love it, and it is a one-time fee of 1,999 AUD, taken in two parts. Do not, and you walk away, and it has cost nothing. The builder owns the code either way.</p>
 
           <h2>The bottom line</h2>
-          <p>For builders sitting on great work and a quiet phone, the message is uncomfortable but simple. The job is being decided online, in the eight seconds before the call, and that first impression is fixable.</p>
+          <p>For builders sitting on great work and a quiet phone, the message is uncomfortable but simple. The job is being decided online, in the seconds before the call, and that first impression is fixable.</p>
           <p>BuilderSite offers to build a full website first and only charge if the builder keeps it. With only a handful of builds each month, the openings tend to fill quickly.</p>
           <div className="cta-wrap"><a className="cta-btn" href={`${base}audit`}>Apply for a Free Build</a><div className="cta-sub">Built first &#183; you pay only if you love it &#183; 1,999 AUD one-time if you keep it, nothing if you do not</div></div>
         </div>
@@ -179,9 +196,9 @@ export default function Editorial() {
 
       <aside className="aside"><div className="stick">
         <div className="widget"><h4>Most Read</h4>
-          <div className="mr"><div className="num">1</div><a href="#">Why homeowners rule out builders before they call</a></div>
-          <div className="mr"><div className="num">2</div><a href="#">The eight seconds that decide who wins the job</a></div>
-          <div className="mr"><div className="num">3</div><a href="#">Inside the rise of AI assistants for home builders</a></div>
+          <div className="mr"><div className="num">1</div><a href="#">Why a dated website costs a builder more than no website at all</a></div>
+          <div className="mr"><div className="num">2</div><a href="#">The referral you already paid for, and how it quietly goes cold</a></div>
+          <div className="mr"><div className="num">3</div><a href="#">Your website is your display home, and homeowners cannot tell the difference</a></div>
           <div className="mr"><div className="num">4</div><a href="#">What a nervous homeowner checks before making contact</a></div>
           <div className="mr"><div className="num">5</div><a href="#">Five things every builder's website gets wrong</a></div>
         </div>
